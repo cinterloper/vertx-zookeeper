@@ -4,6 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+ <distributionManagement>
+    <repository>
+      <id>aws-release</id>
+      <name>AWS Release Repository</name>
+      <url>s3://${env.AWS_MVN_BUCKET}/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>aws-snapshot</id>
+      <name>AWS Snapshot Repository</name>
+      <url>s3://${env.AWS_MVN_BUCKET}/maven2</url>
+    </snapshotRepository>
+  </distributionManagement>
+
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>vertx-parent</artifactId>
@@ -11,12 +24,12 @@
   </parent>
 
   <artifactId>vertx-zookeeper</artifactId>
-  <version>3.2.0-SNAPSHOT</version>
+  <version>3.2.1</version>
 
   <name>Vert.x Zookeeper Cluster Manager</name>
 
   <properties>
-    <stack.version>3.2.0</stack.version>
+    <stack.version>3.2.1</stack.version>
     <curator.version>2.8.0</curator.version>
     <junit.version>4.11</junit.version>
     <log4j.version>1.2.16</log4j.version>
@@ -104,7 +117,15 @@
   </dependencies>
 
   <build>
-    <pluginManagement>
+   <extensions>
+      <extension>
+        <groupId>org.springframework.build</groupId>
+        <artifactId>aws-maven</artifactId>
+        <version>5.0.0.RELEASE</version>
+      </extension>
+    </extensions> 
+
+   <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
